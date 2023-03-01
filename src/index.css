@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html,
+    body,
+    #root {
+        height: 100%;
+        font-family: BlinkMacSystemFont, -apple-system, segoe ui, roboto, oxygen,
+            ubuntu, cantarell, fira sans, droid sans, helvetica neue, helvetica,
+            arial, sans-serif;
+    }
+}
+
+@layer components {
+    ._container {
+        @apply container mx-auto;
+    }
+
+    .nav-item {
+        @apply h-full flex items-center gap-x-2 px-3 hover:bg-hover-blue;
+    }
+
+    .join-discord-btn {
+        @apply h-btn rounded ml-2 flex items-center gap-x-2 text-transparent bg-discord-button bg-discord-color bg-200% bg-right hover:bg-left bg-no-repeat px-10 transition-all duration-200;
+    }
+
+    .hero-banner-wrapper {
+        @apply shadow-lg hover:shadow-2xl transition-all rounded-lg z-10;
+    }
+
+    .hero-banner {
+        @apply w-hero-banner h-hero-banner;
+    }
+
+    .body-icon {
+        @apply w-body-icon h-body-icon bg-icon-bg text-white shadow transition-all rounded-full flex items-center justify-center hover:scale-150;
+    }
+
+    .body-btn {
+        @apply bg-blue text-white rounded w-body-btn h-btn text-2xl flex items-center justify-center gap-x-2 hover:bg-hover-blue;
+    }
+
+    .project-box {
+        @apply grid gap-y-2 border-2 rounded h-project-box p-6 hover:shadow-2xl hover:text-black;
+    }
+
+    .project-box-item {
+        @apply flex items-center gap-x-2 text-h1-title;
+    }
+
+    .adv-form-wrapper {
+        @apply w-adv-form mx-auto bg-gray-50 shadow-lg hover:shadow-2xl rounded p-12;
+    }
+
+    .adv-form-group {
+        @apply flex items-center justify-between gap-x-12;
+    }
+
+    .adv-form-input-wrapper {
+        @apply w-full grid relative;
+    }
+
+    .adv-form-input {
+        @apply border border-blue focus:border-h1-title hover:border-hover-blue h-[50px] px-2 rounded outline-0;
+    }
+
+    .adv-form-label {
+        @apply absolute left-[9px] top-1/2 -translate-y-1/2 pointer-events-none cursor-text transition-all font-medium text-gray-700;
+    }
+
+    .adv-form-btn {
+        @apply bg-blue px-4 py-2 text-center rounded cursor-pointer text-white outline-0 hover:bg-hover-blue;
+    }
+}
