@@ -1,4 +1,5 @@
 interface IAdvertiseForm {
+    token: string;
     name: string;
     email: string;
     advType: string;
