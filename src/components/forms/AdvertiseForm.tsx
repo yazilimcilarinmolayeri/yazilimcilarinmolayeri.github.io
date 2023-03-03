@@ -1,20 +1,51 @@
 import { useFormik } from "formik";
 import IAdvertiseForm from "../../types/IAdvertiseForm";
+import { post } from "../../services/request";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useState, useRef } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AdvertiseForm() {
-    const { handleSubmit, handleChange, values } = useFormik<IAdvertiseForm>({
-        initialValues: {
-            name: "",
-            email: "",
-            advType: "",
-            discord: "",
-            description: "",
-        },
-        onSubmit: (values) => {
-            // send discord
-            console.log(values);
-        },
-    });
+    const [loading, setLoading] = useState(false);
+    const captchaRef = useRef<any>(null);
+    const { handleSubmit, handleChange, resetForm, values } =
+        useFormik<IAdvertiseForm>({
+            initialValues: {
+                token: "",
+                name: "",
+                email: "",
+                advType: "",
+                discord: "",
+                description: "",
+            },
+
+            onSubmit: async (values: any) => {
+                setLoading(true);
+
+                values.token = captchaRef.current.getValue();
+
+                const res = await post(
+                    "http://localhost:5000/api/advertise",
+                    values
+                );
+
+                console.log(values);
+
+                if (res.message === "Succesfully sent") {
+                    resetForm();
+                    captchaRef.current.reset();
+                    toast.success("İlanınız başarıyla gönderildi.");
+                } else if (res.message === "You are a robot") {
+                    captchaRef.current.reset();
+                    toast.error("Robot doğrulaması başarısız.");
+                } else {
+                    toast.error("Ters giden bir şeyler oldu.");
+                }
+
+                setLoading(false);
+            },
+        });
 
     return (
         <section className="pt-20">
@@ -118,11 +149,38 @@ function AdvertiseForm() {
                             </label>
                         </div>
 
+                        <ReCAPTCHA
+                            sitekey="6Le6Ms4kAAAAALucMmMq6JCtzRseUje7fd8cJ7MX"
+                            ref={captchaRef}
+                        />
+
                         <button type="submit" className="adv-form-btn">
-                            Gönder
+                            <span className="font-semibold">Gönder</span>{" "}
+                            {loading && (
+                                <div
+                                    className="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                    role="status"
+                                >
+                                    <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                                        Loading...
+                                    </span>
+                                </div>
+                            )}
                         </button>
                     </form>
                 </div>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="colored"
+                />
             </div>
         </section>
     );
