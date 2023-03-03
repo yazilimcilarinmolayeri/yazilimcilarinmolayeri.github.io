@@ -4,15 +4,15 @@ import { CgGitFork } from "react-icons/cg";
 import { RxDotFilled } from "react-icons/rx";
 import { useState, useEffect } from "react";
 import IProject from "../types/IProject";
+import { get } from "../services/request";
 
 function ProjectSection() {
     const [projects, setProjects] = useState<IProject[]>([]);
 
     const fetchProjects = async () => {
-        const response = await fetch(
+        const repos = await get(
             "https://api.github.com/orgs/yazilimcilarinmolayeri/repos"
         );
-        const repos = await response.json();
         const data: IProject[] = repos.map((repo: IProject) => {
             return {
                 html_url: repo.html_url,
