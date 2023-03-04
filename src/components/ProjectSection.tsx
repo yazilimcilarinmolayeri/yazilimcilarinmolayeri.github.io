@@ -35,7 +35,7 @@ function ProjectSection() {
         <section className="pt-20">
             <div className="_container">
                 <h1 className="text-5xl text-h1-title mb-12">Projeler</h1>
-                <div className="grid grid-cols-3 gap-6">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {projects &&
                         projects
                             .sort(
@@ -58,7 +58,7 @@ function ProjectSection() {
                                     <p className="text-h1-title">
                                         {project.description}
                                     </p>
-                                    <div className="flex items-center gap-x-8">
+                                    <div className="flex items-center justify-between sm:justify-start sm:gap-x-8">
                                         <div className="project-box-item">
                                             <RxDotFilled
                                                 size={20}

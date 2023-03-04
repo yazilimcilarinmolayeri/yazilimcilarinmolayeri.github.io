@@ -10,8 +10,8 @@ function BodySection() {
         <section className="pt-20">
             <div className="_container">
                 <h1 className="text-5xl text-h1-title mb-12">Biz Kimiz?</h1>
-                <div className="flex items-center justify-around">
-                    <div className="w-body-item grid gap-y-8">
+                <div className="flex items-center justify-around gap-12 flex-col 2xl:gap-0 lg:flex-row">
+                    <div className="md:w-body-item grid gap-y-8">
                         <p>
                             Yazılımcıların Mola Yeri, 2018 Yılında kurulmuş olan
                             ve Türkiye'deki yazılımcılara destek olmayı
@@ -44,11 +44,11 @@ function BodySection() {
                             çıkarabilirsiniz.
                         </p>
                     </div>
-                    <div className="w-body-item shadow-2xl text-center p-5 grid gap-y-12">
+                    <div className="md:w-body-item shadow-2xl text-center p-5 grid gap-y-12">
                         <h2 className="text-[32px] text-h2-title">
                             Zaman tüneli
                         </h2>
-                        <div className="bg-timeline h-[3px] flex items-center justify-center gap-x-14">
+                        <div className="bg-timeline h-[3px] flex items-center justify-center gap-x-4 sm:gap-x-14">
                             <div className="body-icon">
                                 <TbNorthStar />
                             </div>

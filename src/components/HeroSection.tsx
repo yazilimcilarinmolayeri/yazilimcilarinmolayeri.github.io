@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 function HeroSection() {
     return (
-        <section className="bg-blue h-hero-section flex items-center">
+        <section className="bg-blue md:h-[300px] lg:h-[400px] xl:h-[450px] 2xl:h-hero-section flex items-center">
             <div className="_container flex justify-around">
-                <div className="hero-banner-wrapper">
+                <div className="hero-banner-wrapper hidden md:block">
                     <Link to="https://discord.gg/KazHgb2" target="blank">
                         <img
                             className="hero-banner"
