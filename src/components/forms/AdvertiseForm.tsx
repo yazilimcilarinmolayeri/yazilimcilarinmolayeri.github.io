@@ -26,7 +26,7 @@ function AdvertiseForm() {
                 values.token = captchaRef.current.getValue();
 
                 const res = await post(
-                    "http://localhost:5001/api/advertise",
+                    "https://yazilimcilarinmolayeri.com/api/advertise",
                     values
                 );
 
