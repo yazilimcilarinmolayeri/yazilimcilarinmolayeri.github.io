@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function AdvertiseForm() {
     const [loading, setLoading] = useState(false);
+    const [isVerified, setIsVerified] = useState(false)
     const captchaRef = useRef<any>(null);
     const { handleSubmit, handleChange, resetForm, values } =
         useFormik<IAdvertiseForm>({
@@ -21,6 +22,10 @@ function AdvertiseForm() {
             },
 
             onSubmit: async (values: any) => {
+                if (!isVerified) {
+                    return toast.error("Lütfen robot doğrulaması yapın.")
+                }
+
                 setLoading(true);
 
                 values.token = captchaRef.current.getValue();
@@ -30,17 +35,15 @@ function AdvertiseForm() {
                     values
                 );
 
-                console.log(values);
-
-                if (res.message === "Succesfully sent") {
+                if (res.ok) {
                     resetForm();
                     captchaRef.current.reset();
-                    toast.success("İlanınız başarıyla gönderildi.");
-                } else if (res.message === "You are a robot") {
-                    captchaRef.current.reset();
-                    toast.error("Robot doğrulaması başarısız.");
+                    setIsVerified(false)
+                    toast.success(res.message);
                 } else {
-                    toast.error("Ters giden bir şeyler oldu.");
+                    captchaRef.current.reset();
+                    setIsVerified(false)
+                    toast.error(res.message);
                 }
 
                 setLoading(false);
@@ -152,9 +155,10 @@ function AdvertiseForm() {
                         <ReCAPTCHA
                             sitekey="6Le6Ms4kAAAAALucMmMq6JCtzRseUje7fd8cJ7MX"
                             ref={captchaRef}
+                            onChange={value => value && setIsVerified(true)}
                         />
 
-                        <button type="submit" className="adv-form-btn">
+                        <button type="submit" className="adv-form-btn disabled:opacity-60 disabled:hover:bg-blue disabled:cursor-wait" disabled={loading}>
                             <span className="font-semibold">Gönder</span>{" "}
                             {loading && (
                                 <div

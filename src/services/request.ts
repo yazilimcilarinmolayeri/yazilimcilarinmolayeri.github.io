@@ -8,9 +8,13 @@ async function request(url: string, method: string = "GET", data: any = false) {
         options.body = JSON.stringify(data)
     }
 
-    const response = await fetch(url, options)
-    const result = await response.json()
-    return result
+    try {
+        const response = await fetch(url, options)
+        const result = await response.json()
+        return result
+    } catch (err) {
+        return err
+    }
 }
 
 export const get = (url: string) => request(url)
