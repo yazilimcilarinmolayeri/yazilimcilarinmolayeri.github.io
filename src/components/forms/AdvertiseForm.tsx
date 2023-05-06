@@ -6,6 +6,8 @@ import { useState, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const API_URL = "https://yazilimcilarinmolayeri.vercel.app/api/advertise"
+
 function AdvertiseForm() {
     const [loading, setLoading] = useState(false);
     const [isVerified, setIsVerified] = useState(false)
@@ -31,7 +33,7 @@ function AdvertiseForm() {
                 values.token = captchaRef.current.getValue();
 
                 const res = await post(
-                    "https://api.yazilimcilarinmolayeri.com/advertise",
+                    API_URL,
                     values
                 );
 
